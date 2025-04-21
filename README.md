@@ -1,8 +1,6 @@
 # Online Randevu Sistemi VERANDEVUM
 
-<div align="center">
-  <p><i>C# ile geliştirilmiş profesyonel online randevu yönetim sistemi</i></p>
-</div>
+<p><i>C# ile geliştirilmiş profesyonel online randevu yönetim sistemi</i></p>
 
 ![dessseee](https://github.com/user-attachments/assets/d38d07e9-090a-49b9-815d-c8176a24687a)
 
