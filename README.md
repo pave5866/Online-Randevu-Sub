@@ -1,7 +1,8 @@
 # Online Randevu Sistemi VERANDEVUM
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/pave5866/Online-Randevu-Sub/main/assets/logo.png" alt="Randevu Sistemi Logo" width="200"/>
+  ![500x500 verandevum](https://github.com/user-attachments/assets/da2f9f40-594e-4898-9674-024b84f91d4e)
+
   <p><i>C# ile geliştirilmiş profesyonel online randevu yönetim sistemi</i></p>
 </div>
 
