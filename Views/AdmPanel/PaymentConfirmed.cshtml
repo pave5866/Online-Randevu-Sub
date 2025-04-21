@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+@{
+    ViewData["Title"] = "Ödeme Sayfası";
+    Layout = null;
+}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5;url=/Home/Index"> <!-- Adjust this URL based on your routing -->
+    <title>Randevu Onaylandı</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4f4f9;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 600px;
+            background-color: white;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .card__success {
+            color: #4CAF50;
+            font-size: 72px;
+        }
+
+        .card__msg {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .card__submsg {
+            color: #666;
+            font-size: 18px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .card__body {
+            text-align: left;
+            padding: 20px;
+        }
+
+        .card__recipient-info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .card__recipient {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .card__price {
+            color: #333;
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .card__tags {
+            font-size: 14px;
+            color: white;
+            background-color: #4CAF50;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <span class="card__success">✔</span>
+        <h1 class="card__msg">Ödeme Onaylandı</h1>
+        <h2 class="card__submsg">Teşekkürler</h2>
+        <div class="card__body">
+            <div class="card__recipient-info">
+                <p class="card__recipient">Adı: @Model.Name</p>
+                <p class="card__recipient">Randevu Tarihi: @Model.Date.ToString("dd/MM/yyyy") Saati:
+                    @Model.Time.ToString(@"hh\:mm")</p>
+                <p class="card__recipient">Randevuyu Aldığınız Kişi: @Model.Staff.FirstName @Model.Staff.LastName</p>
+            </div>
+            <h1 class="card__price"><span>₺</span>@Model.Price</h1>
+        </div>
+        <div class="card__tags">TAMAMLANDI</div>
+    </div>
+    <script>
+        setTimeout(function () {
+            window.location.href = '/Home/Index'; // Ensure you have the correct URL for redirection
+        }, 15000);
+    </script>
+</body>
+
+</html>

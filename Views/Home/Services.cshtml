@@ -1,0 +1,181 @@
+﻿@{
+    ViewData["Title"] = "Hizmetler";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <!-- Site Title-->
+    <title>@ViewBag.SiteTitle - Hizmetler</title>
+    <link rel="shortcut icon" href="~/img/logo.png" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto+Mono:300,300italic,400,700%7CArvo:400,700">
+    <link rel="stylesheet" href="~/index/css/style.css">
+    <!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+        <![endif]-->
+</head>
+<body>
+    <div class="page">
+        <main class="page-content" id="perspective">
+            <header class="page-header">
+                <div class="rd-navbar-wrap">
+                    <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-sm-device-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-stick-up-clone="true" data-md-stick-up-offset="140px" data-lg-stick-up-offset="140px">
+                        <div class="rd-navbar-inner">
+                            <div class="rd-navbar-panel">
+                                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                                <div class="rd-navbar-brand">
+                                    <a class="brand-name" href="@Url.Action("Index", "Home")">
+                                        <div class="brand-mobile">
+                                            <img src="~/panel/img/logo.png" alt="" width="200" height="36" />
+                                        </div>
+                                        <div class="brand-desktop">
+                                            <img src="~/panel/img/logo.png" alt="" width="125" height="125" />
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="rd-navbar-nav-wrap">
+                                <div class="rd-navbar-nav-inner">
+                                    <ul class="rd-navbar-nav">
+                                        <li class="active">
+                                            <a href="@Url.Action("Index", "Home")">Anasayfa</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("About", "Home")">Hakkımızda ▼</a>
+                                            <ul class="rd-navbar-dropdown">
+                                                <li>
+                                                    <a href="@Url.Action("Team", "Home")">Çalışanlarımız</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Privacy", "Home")">Yasal</a>
+                                                </li>
+                                                <li>
+                                                    <a href="@Url.Action("Services", "Home")">Hizmetlerimiz</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Randevu", "Home")">Randevu Al</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Blog", "Home")">Blog</a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Contact", "Home")">İletişim</a>
+                                        </li>
+                                        @if (ViewBag.UserName != null)
+                                        {
+                                            <li><a href="@Url.Action("Logout", "AdmPanel")">Çıkış Yap</a></li>
+                                            <li><a href="@Url.Action("Index", "AdmPanel")">@ViewBag.UserName</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@Url.Action("Login", "AdmPanel")">Giriş Yap</a></li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            @model IEnumerable<Randevu.Models.Service>
+            <div class="content-wrapper">
+                <div id="wrapper">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <section class="section-xl bg-periglacial-blue text-center">
+                        <div class="shell">
+                            <h2>Hizmetlerimiz</h2>
+                        </div>
+                        <div class="shell">
+                            <div class="range range-30">
+                                @foreach (var service in Model)
+                                {
+                                    <div class="cell-sm-6 cell-md-4 height-fill">
+                                        <div class="thumbnail-card">
+                                            <img class="thumbnail-card-image" src="@Url.Content("~/img/services/" + service.ServiceID + ".png")" alt="" width="370" height="310" />
+                                            <div class="thumbnail-card-body">
+                                                <p class="thumbnail-card-header" data-toggle="modal">@service.Description</p>
+                                                <div class="thumbnail-card-text">
+                                                    <p>@service.Price₺</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <footer class="page-footer page-footer-variant-3">
+                        <div class="shell">
+                            <div class="range range-50">
+                                <div class="cell-sm-6 cell-md-4">
+                                    <h3>Sayfalar</h3>
+                                    <div class="divider divider-conch"></div>
+                                    <ul class="footer-navigation row footer-navigation-vertical" style="max-width: 390px;">
+                                        <li class="col-xs-6"><a href="@Url.Action("Index", "Home")">Anasayfa</a></li>
+                                        <li class="col-xs-6"><a href="@Url.Action("Blog", "Home")">Blog</a></li>
+                                        <li class="col-xs-6"><a href="@Url.Action("About", "Home")">Hakkımızda</a></li>
+                                        <li class="col-xs-6"><a href="@Url.Action("Contact", "Home")">İletişim</a></li>
+                                    </ul>
+                                </div>
+                                <div class="cell-sm-6 cell-md-3">
+                                    <h3>Bizi Takip Edin</h3>
+                                    <div class="divider divider-conch"></div>
+                                    <ul class="inline-list inline-list-xs">
+
+                                        @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Facebook))
+                                        {
+                                            <li>
+                                                <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-facebook" href="@ViewBag.ContactInfo.Facebook"></a>
+                                            </li>
+                                        }
+                                        @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Twitter))
+                                        {
+                                            <li>
+                                                <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-twitter" href="@ViewBag.ContactInfo.Twitter"></a>
+                                            </li>
+                                        }
+                                        @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Youtube))
+                                        {
+                                            <li>
+                                                <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-youtube" href="@ViewBag.ContactInfo.Youtube"></a>
+                                            </li>
+                                        }
+                                        @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Instagram))
+                                        {
+                                            <li>
+                                                <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-instagram" href="@ViewBag.ContactInfo.Instagram"></a>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+                <div id="perspective-content-overlay"></div>
+            </div>
+            <!-- RD Navbar-->
+        </main>
+    </div>
+
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="~/index/js/core.min.js"></script>
+    <script src="~/index/js/script.js"></script>
+</body>
+</html>

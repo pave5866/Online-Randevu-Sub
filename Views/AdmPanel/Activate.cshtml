@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Activate";
+    Layout = null;
+    int redirectTime = 5; // Yönlendirme için bekleme süresi (saniye)
+    string redirectUrl = Url.Action("Index", "Home");
+}
+
+@if (ViewBag.Success != null)
+{
+    <div class="alert alert-success">@ViewBag.Success</div>
+    <meta http-equiv="refresh" content="@redirectTime;url='@redirectUrl'" />
+    <script>
+        setTimeout(function () {
+            window.location.href = '@redirectUrl';
+        }, @redirectTime * 1000);
+    </script>
+}
+else if (ViewBag.Hata != null)
+{
+    <div class="alert alert-danger">@ViewBag.Hata</div>
+}

@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5;url=@Url.Action("Index", "Home")"> <!-- 5 saniye sonra ana sayfaya yönlendir -->
+    <title>Randevu Onaylandı</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css"> <!-- Bootstrap CSS eklendi -->
+    <script src="~/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS eklendi -->
+    <style>
+        body {
+            background-color: #e9f7ef; /* Hafif yeşil arka plan */
+            font-family: 'Helvetica Neue', Arial, sans-serif; /* Modern sans-serif yazı tipi */
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #28a745; /* Üst kenar rengi yeşil */
+        }
+
+        .alert {
+            font-size: 18px;
+            font-weight: 500;
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            text-align: center;
+        }
+
+            .alert .message {
+                margin-bottom: 10px;
+            }
+
+            .alert .sub-message {
+                font-size: 16px;
+                color: #155724;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="alert alert-success" role="alert">
+            <div class="message">Randevu Talebiniz Başarıyla Oluşturuldu. ✓</div>
+            <div class="sub-message">Mail ile bilgilendirme alacaksınız.</div>
+            <div class="sub-message">Ana sayfaya yönlendiriliyorsunuz.</div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("Index", "Home")'; // JavaScript ile yönlendirme
+        }, 5000); // 5000 milisaniye (5 saniye) sonra
+    </script>
+</body>
+</html>

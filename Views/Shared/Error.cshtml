@@ -1,0 +1,23 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = null;
+}
+
+<h1 class="text-danger">Hata.</h1>
+<h2 class="text-danger">Bir Hata Meydana Geldi</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Hata Kodu:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<p>5 saniye sonra ana sayfaya yönlendirileceksiniz...</p>
+
+<script>
+    setTimeout(function () {
+        window.location.href = "@Url.Action("Index", "Home")";
+    }, 5000); // 5000 milisaniye = 5 saniye
+</script>

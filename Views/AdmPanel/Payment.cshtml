@@ -1,0 +1,88 @@
+﻿@using Nancy.Json
+@using Newtonsoft.Json
+@using System.Net
+@using System.Text
+@using Newtonsoft.Json.Linq
+@using System.Security.Cryptography
+@using System.Collections.Specialized
+@model Randevu.Models.PayTR
+@{
+    ViewData["Title"] = "Ödeme Sayfası";
+    Layout = null;
+}
+
+
+<div>@ViewBag.url</div>
+
+
+
+<script src="https://www.paytr.com/js/iframeResizer.min.js"></script>
+<iframe src="@ViewBag.url" id="paytriframe" frameborder="0"
+        scrolling="no" style="width: 100%;"></iframe>
+<script>iFrameResize({}, '#paytriframe');</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <!DOCTYPE html>
+<html>
+
+<head>
+    <title>@ViewBag.SiteTitle - Ödeme Sayfası</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://www.paytr.com/js/iframeResizer.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Model verisini JavaScript nesnesine çevir
+            var model = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+            console.log(model)
+
+            // status alanına göre HTML elemanlarını göster veya gizle
+            if (model.Status === "success") {
+                $("#paytriframe").show();
+                $("#failedMessage").hide();
+            } else {
+                $("#failedMessage").show();
+                $("#paytriframe").hide();
+                setTimeout(function () {
+                    window.location.href = '@Url.Action("Index", "Home")'; // JavaScript ile yönlendirme
+                }, 5000); // 5000 milisaniye (5 saniye) sonra
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <iframe src="@Model.Url" id="paytriframe" frameborder="0" scrolling="no" style="width: 100%;"></iframe>
+    <script>iFrameResize({}, '#paytriframe');</script>
+    <div class="container mt-5" id="failedMessage">
+        <div class="alert alert-error" role="alert">
+            Hata oluştu, 5 saniye içinde anasayfaya yönlendirileceksiniz.
+        </div>
+    </div>
+
+</body>
+
+</html> *@

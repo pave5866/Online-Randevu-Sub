@@ -1,0 +1,76 @@
+﻿@{
+	ViewData["Title"] = "Kayıt Sayfası";
+	Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+	<link rel="shortcut icon" href="~/img/logo.png" />
+    <title>@ViewBag.SiteTitle - Kayıt</title>
+	<link rel="stylesheet" href="~/panel/css/bootstrap.min.css" />
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="~/panel/css/main.css" />
+
+</head>
+
+<body class="authentication">
+
+	<!-- Container start -->
+	<div class="container">
+        <form method="post" action="/AdmPanel/Register">
+            <div class="row justify-content-md-center">
+                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12">
+                    <div class="login-screen">
+                        <div class="login-box">
+                            <a href="@Url.Action("Index", "Home")" class="login-logo">
+                                <img src="~/img/logo.png" />
+                            </a>
+                            <h5>Welcome,<br />Yeni Üyelik Oluşturun</h5>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="mail" id="mail" placeholder="Mail Adresi" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="firstName" id="firstName" placeholder="İsim" />
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" name="phone" id="phone" placeholder="Telefon Numarası" pattern="[0-9]{10}" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Soyisim" />
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="password" name="password1" id="password1" class="form-control" placeholder="Şifre" />
+                                    <input type="password" name="password2" id="password2" class="form-control" placeholder="Şifreyi doğrula">
+                                </div>
+                                <small id="passwordHelpInline" class="text-muted">
+                                    <h3><p color="red">@ViewBag.Hata</p></h3>
+                                </small>
+                            </div>
+                            <div class="actions mb-4">
+                                <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                            </div>
+                            <div class="form-group text-center">
+                                <small class="form-text text-muted">
+                                    "Kayıt Ol" butonuna tıklayarak <a href="@Url.Action("Privacy", "Home")">Gizlilik Politikasını</a> kabul etmiş olursunuz.
+                                </small>
+                            </div>
+                            <hr>
+                            <div class="m-0">
+                                <span class="additional-link">Zaten Üye Misin ? <a href="/AdmPanel/Login" class="btn btn-dark">Giriş</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+
+	</div>
+	<!-- Container end -->
+
+</body>
+</html>

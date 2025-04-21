@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Giriş Sayfası";
+    Layout = null;
+}
+<title>@ViewBag.SiteTitle - Giriş</title>
+<link rel="stylesheet" href="~/panel/css/bootstrap.min.css" />
+<link rel="shortcut icon" href="~/img/logo.png" />
+<!-- Master CSS -->
+<link rel="stylesheet" href="~/panel/css/main.css" />
+<body class="authentication">
+
+	<!-- Container start -->
+	<div class="container">
+		<form method="post" action="/AdmPanel/Login">
+			<div class="row justify-content-md-center">
+				<div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+					<div class="login-screen">
+						<div class="login-box">
+							<a href="@Url.Action("Index", "Home")" class="login-logo">
+								<img src="~/img/logo.png" alt="Wafi Admin Dashboard" />
+							</a>
+							<h5>VeRandevum Panel<br />Giriş Ekranı.</h5>
+							@ViewBag.Hata
+							<div class="form-group">
+								<input type="text" id="username" name="username" class="form-control" placeholder="Mail Adresi" />
+							</div>
+							<div class="form-group">
+								<input type="password" id="password" name="password" class="form-control" placeholder="Şifre" />
+							</div>
+							<div class="actions mb-4">
+								<!-- Login Button -->
+								<button type="submit" class="btn btn-primary mb-2">Giriş</button>
+								<br>
+								<!-- Register Link -->
+								<a href="/AdmPanel/Register" class="btn btn-primary mb-2" role="button">Kayıt Ol</a>
+								<br>
+								<!-- Forgot Password Link -->
+								<a href="/AdmPanel/ForgetPassword" class="btn btn-link">Şifremi Unuttum</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+	<!-- Container end -->
+
+</body>

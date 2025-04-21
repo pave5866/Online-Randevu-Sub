@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+  <Tavsiyeler>
+    <Tavsiye>
+      <Name>Efe YILDIRIM</Name>
+      <Comment>Beğendim iyi güzel</Comment>
+      <Image>bb93495f-e25b-43a2-b627-33c3ce63a8d3.png</Image>
+    </Tavsiye>
+    <Tavsiye>
+      <Name>Ahmet Ali</Name>
+      <Comment>İdare eder</Comment>
+      <Image>b794a50e-1c94-448b-89a8-af94c9900826.png</Image>
+    </Tavsiye>
+    <Tavsiye>
+      <Name>Cem Kağan</Name>
+      <Comment>Süper olmuş</Comment>
+      <Image>1dba8327-3883-4980-9695-b4e60ce3ca35.png</Image>
+    </Tavsiye>
+  </Tavsiyeler>
+</Settings>

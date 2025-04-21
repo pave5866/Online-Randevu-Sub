@@ -1,0 +1,394 @@
+﻿@{
+	ViewData["Title"] = "Personel";
+	Layout = null;
+}
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>@ViewBag.SiteTitle - Randevular</title>
+	<link rel="shortcut icon" href="~/img/logo.png" />
+
+	<!-- Bootstrap css -->
+	<link rel="stylesheet" href="~/panel/css/bootstrap.min.css">
+
+	<!-- Icomoon Font Icons css -->
+	<link rel="stylesheet" href="~/panel/fonts/style.css">
+
+	<!-- Main css -->
+	<link rel="stylesheet" href="~/panel/css/main.css">
+	<link rel="stylesheet" href="~/panel/vendor/datatables/dataTables.bs4.css" />
+	<link rel="stylesheet" href="~/panel/vendor/datatables/dataTables.bs4-custom.css" />
+	<link href="~/panel/vendor/datatables/buttons.bs.css" rel="stylesheet" />
+	<link rel="stylesheet" href="~/panel/vendor/bs-select/bs-select.css" />
+
+	<!-- *************
+		************ Vendor Css Files *************
+	************ -->
+	<!-- DateRange css -->
+	<link rel="stylesheet" href="~/panel/vendor/daterange/daterange.css" />
+
+	<!-- Bootstrap Select CSS -->
+	<link rel="stylesheet" href="~/panel/vendor/bs-select/bs-select.css" />
+	<!-- Rangeslider CSS -->
+	<link rel="stylesheet" href="~/panel/vendor/range-slider/ion.rangeSlider.css" />
+</head>
+<body>
+
+	<!-- Loading starts -->
+	<div id="loading-wrapper">
+		<div class="spinner-border" role="status">
+			<span class="sr-only">Yükleniyor...</span>
+		</div>
+	</div>
+	<!-- Loading ends -->
+	<!-- *************
+		************ Header section start *************
+	************* -->
+	<!-- Header start -->
+	<header class="header">
+		<div class="logo-wrapper">
+			<a href="@Url.Action("Index", "Home")" class="logo">
+				<img src="~/img/logo.png" alt="Randevu" />
+			</a>
+		</div>
+		<div class="header-items">
+			<!-- Custom search start -->
+			<!-- Custom search end -->
+			<!-- Header actions start -->
+			<ul class="header-actions">
+				<li class="dropdown">
+					<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
+						<span class="user-name">@ViewBag.UserName</span>
+						<span class="avatar">@ViewBag.UserInitials<span class="status busy"></span></span>
+					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userSettings">
+						<div class="header-profile-actions">
+							<div class="header-user-profile">
+								<div class="header-user">
+									<img src="/img/staff/@(ViewBag.UserID).png" alt="Admin Template" />
+								</div>
+								<h5>@ViewBag.UserName</h5>
+								<p>@ViewBag.UserPosition</p>
+							</div>
+							<a href="@Url.Action("UserSettings", "AdmPanel")"><i class="icon-settings1"></i>Ayarlar</a>
+							<a href="@Url.Action("Logout", "AdmPanel")"><i class="icon-log-out1"></i>Çıkış</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<!-- Header actions end -->
+		</div>
+	</header>
+	<!-- Header end -->
+	<!-- Screen overlay start -->
+	<div class="screen-overlay"></div>
+	<!-- Screen overlay end -->
+	<!-- Container fluid start -->
+	<div class="container-fluid">
+
+		<!-- Navigation start -->
+		<nav class="navbar navbar-expand-lg custom-navbar">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#WafiAdminNavbar" aria-controls="WafiAdminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon">
+					<i></i>
+					<i></i>
+					<i></i>
+				</span>
+			</button>
+			<div class="collapse navbar-collapse" id="WafiAdminNavbar">
+				<ul class="navbar-nav">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="dashboardsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="icon-devices_other nav-icon"></i>
+							Anasayfa
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dashboardsDropdown">
+							<li>
+								<a class="dropdown-item" href="@Url.Action("Index", "AdmPanel")">Anasayfa</a>
+							</li>
+							@if (ViewBag.UserRole == "Head Admin" || ViewBag.UserRole == "Admin")
+							{
+								<li>
+									<a class="dropdown-item" href="@Url.Action("GelirGider", "AdmPanel")">Gelir Gider</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="@Url.Action("Services", "AdmPanel")">Hizmetler</a>
+								</li>
+							}
+						</ul>
+					</li>
+					@if (ViewBag.UserRole == "Head Admin" || ViewBag.UserRole == "Admin")
+					{
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle active-page" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="icon-book-open nav-icon"></i>
+								Üyelik
+							</a>
+
+							<ul class="dropdown-menu" aria-labelledby="pagesDropdown">
+								<li>
+									<a class="dropdown-item" href="@Url.Action("Users", "AdmPanel")">Üyeler</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="@Url.Action("DeactiveUsers", "AdmPanel")">Pasif Üyeler</a>
+								</li>
+								<li>
+									<a class="dropdown-item active-page" href="@Url.Action("Staff", "AdmPanel")">Personel</a>
+								</li>
+								@if (ViewBag.UserRole == "Head Admin")
+								{
+									<li>
+										<a class="dropdown-item" href="@Url.Action("OffStaff", "AdmPanel")">Pasif Personeller</a>
+									</li>
+								}
+							</ul>
+
+						</li>
+					}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="formsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="icon-edit1 nav-icon"></i>
+							Randevu
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="formsDropdown">
+							<li>
+								<a class="dropdown-item" href="@Url.Action("WorkDays", "AdmPanel", new { id = ViewBag.UserID })">Çalışma Saatlerim</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="@Url.Action("SpecialDays", "AdmPanel", new { id = ViewBag.UserID })">Özel Tatiller</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="@Url.Action("MyAppointments", "AdmPanel")">Bekleyen Randevularım</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="@Url.Action("Appointments", "AdmPanel")">Randevular</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="@Url.Action("Blog", "AdmPanel")" role="button" aria-haspopup="true" aria-expanded="false">
+							<i class="icon-image nav-icon"></i>
+							Blog
+						</a>
+					</li>
+					@if (ViewBag.UserRole == "Head Admin" || ViewBag.UserRole == "Admin")
+					{
+						<li class="nav-item dropdown">
+							<a class="nav-link" href="@Url.Action("AdmSettings", "AdmPanel")" role="button" aria-haspopup="true" aria-expanded="false">
+								<i class="icon-border_all nav-icon"></i>
+								Site Düzenlemesi
+							</a>
+						</li>
+					}
+
+				</ul>
+			</div>
+		</nav>
+		<!-- Navigation end -->
+		<!-- *************
+			************ Main container start *************
+		************* -->
+		<div class="main-container">
+
+
+			<!-- Page header start -->
+			<div class="page-header">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">Personel</li>
+					<li class="breadcrumb-item active">Çalışma Saatleri</li>
+				</ol>
+			</div>
+			<!-- Page header end -->
+			<!-- Content wrapper start -->
+			<div class="content-wrapper">
+				@ViewBag.Hata
+				<br>
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="table-container">
+						<div class="t-header">Personel Randevuları</div>
+						<div class="table-responsive">
+							@if (ViewBag.Appointments.Count == 0)
+							{
+								<p>Henüz hiç randevu yok</p>
+							}
+							else
+							{
+								<table id="copy-print-csv" class="table custom-table">
+									<thead>
+										<tr>
+											<th>İsim</th>
+											<th>Tarih</th>
+											<th>Saat</th>
+											<th>Durum</th>
+											<th>Mail</th>
+											<th>Telefon</th>
+											<th>İncele</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var appointment in ViewBag.Appointments)
+										{
+											<tr>
+												<td>@appointment.Name</td>
+												<td>@appointment.DateTime.ToString("dd/MM/yyyy")</td>
+												<td>@appointment.DateTime.ToString("HH:mm")</td>
+												<td>
+													@if (appointment.Status == "Onay Bekleniyor")
+													{
+														<span class="badge badge-pill badge-warning">Onay Bekleniyor</span>
+													}
+													else
+													{
+														<span class="badge badge-pill badge-success">Onaylandı</span>
+													}
+												</td>
+												<td>@appointment.Email</td>
+												<td>@appointment.Telefon</td>
+												<td>
+													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customModalOne"
+															data-id="@appointment.AppointmentID"
+															data-name="@appointment.Name"
+															data-date="@appointment.DateTime.ToString("dd/MM/yyyy HH:mm")"
+															data-phone="@appointment.Telefon"
+															data-email="@appointment.Email"
+															data-price="@appointment.Price">
+														İncele
+													</button>
+												</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							}
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="customModalOne" tabindex="-1" role="dialog" aria-labelledby="customModalTwoLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="customModalTwoLabel">Randevu Talebi</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<input type="hidden" id="AppointmentId" name="AppointmentId">
+								<div class="form-group">
+									<label for="FirstName" class="col-form-label">İsim:</label>
+									<input type="text" class="form-control" id="FirstName" name="FirstName" readonly>
+								</div>
+								<div class="form-group">
+									<label for="Position" class="col-form-label">Randevu Tarihi:</label>
+									<input type="text" class="form-control" id="Position" name="Position" readonly>
+								</div>
+								<div class="form-group">
+									<label for="Phone" class="col-form-label">Telefon:</label>
+									<input type="text" class="form-control" id="Phone" name="Phone" readonly>
+								</div>
+								<div class="form-group">
+									<label for="Email" class="col-form-label">Email:</label>
+									<input type="email" class="form-control" id="Email" name="Email" readonly>
+								</div>
+								<div class="form-group" id="PriceInput" style="display:none;">
+									<label for="Price" class="col-form-label">Fiyat:</label>
+									<input type="number" class="form-control" id="Price" name="Price" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- *************
+					************ Main container end *************
+				************* -->
+				<!-- Footer start -->
+				<footer class="main-footer">© VeRandevum 2024</footer>
+				<!-- Footer end -->
+
+			</div>
+			<!-- Container fluid end -->
+			<!-- *************
+				************ Required JavaScript Files *************
+			************* -->
+			<!-- Required jQuery first, then Bootstrap Bundle JS -->
+			<script src="~/panel/js/jquery.min.js"></script>
+			<script src="~/panel/js/bootstrap.bundle.min.js"></script>
+			<script src="~/panel/js/moment.js"></script>
+
+
+			<!-- *************
+				************ Vendor Js Files *************
+			************* -->
+			<!-- Slimscroll JS -->
+			<script src="~/panel/vendor/slimscroll/slimscroll.min.js"></script>
+			<script src="~/panel/vendor/slimscroll/custom-scrollbar.js"></script>
+
+			<!-- Daterange -->
+			<script src="~/panel/vendor/daterange/daterange.js"></script>
+			<script src="~/panel/vendor/daterange/custom-daterange.js"></script>
+
+			<!-- Bootstrap Select JS -->
+			<script src="~/panel/vendor/bs-select/bs-select.min.js"></script>
+			<!-- Data Tables -->
+			<script src="~/panel/vendor/datatables/dataTables.min.js"></script>
+			<script src="~/panel/vendor/datatables/dataTables.bootstrap.min.js"></script>
+			<!-- Custom Data tables -->
+			<script src="~/panel/vendor/datatables/custom/custom-datatables.js"></script>
+			<script src="~/panel/vendor/datatables/custom/fixedHeader.js"></script>
+			<!-- Main Js Required -->
+			<script src="~/panel/js/main.js"></script>
+			<script src="~/panel/vendor/datatables/buttons.min.js"></script>
+			<script src="~/panel/vendor/datatables/jszip.min.js"></script>
+			<script src="~/panel/vendor/datatables/pdfmake.min.js"></script>
+			<script src="~/panel/vendor/datatables/vfs_fonts.js"></script>
+			<script src="~/panel/vendor/datatables/html5.min.js"></script>
+			<script src="~/panel/vendor/datatables/buttons.print.min.js"></script>
+			<!-- Bootstrap Select JS -->
+			<script src="~/panel/vendor/bs-select/bs-select.min.js"></script>
+			<script src="~/panel/vendor/input-masks/cleave.min.js"></script>
+			<script src="~/panel/vendor/input-masks/cleave-phone.js"></script>
+			<script src="~/panel/vendor/input-masks/cleave-custom.js"></script>
+			<script>
+				$(document).ready(function () {
+					$('#customModalOne').on('show.bs.modal', function (event) {
+						var button = $(event.relatedTarget); // Modalı tetikleyen buton
+						var id = button.data('id');
+						var name = button.data('name');
+						var date = button.data('date');
+						var phone = button.data('phone');
+						var email = button.data('email');
+						var price = button.data('price'); // Fiyat bilgisi
+
+						var modal = $(this);
+						modal.find('.modal-body #AppointmentId').val(id);
+						modal.find('.modal-body #FirstName').val(name);
+						modal.find('.modal-body #Position').val(date);
+						modal.find('.modal-body #Phone').val(phone);
+						modal.find('.modal-body #Email').val(email);
+
+						if (price) {
+							modal.find('.modal-body #PriceInput').show();
+							modal.find('.modal-body #Price').val(price);
+						} else {
+							modal.find('.modal-body #PriceInput').hide();
+						}
+					});
+				});
+			</script>
+			<style>
+				.was-validated .form-control:invalid {
+					border-color: #dc3545;
+					padding-right: calc(1.5em + .75rem);
+					background-repeat: no-repeat;
+					background-position: right calc(.375em + .1875rem) center;
+					background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+				}
+
+				.was-validated .form-control:valid {
+					border-color: #28a745;
+				}
+			</style>
+</body>
+</html>

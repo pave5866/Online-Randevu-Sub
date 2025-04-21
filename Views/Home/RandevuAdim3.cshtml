@@ -1,0 +1,273 @@
+﻿@model ServiceListVM
+@{
+    ViewData["Title"] = "Anasayfa";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <!-- Site Title-->
+    <title>@ViewBag.SiteTitle - Randevu Adım 3</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="~/img/logo.png" />
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto+Mono:300,300italic,400,700%7CArvo:400,700">
+    <link rel="stylesheet" href="~/index/css/style.css">
+
+    @* <style>
+    #ServiceSelect {
+    background-color:grey;
+    }
+    </style> *@
+</head>
+<body>
+    <div class="page">
+        <header class="page-header">
+            <div class="rd-navbar-wrap">
+                <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-sm-device-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-stick-up-clone="true" data-md-stick-up-offset="140px" data-lg-stick-up-offset="140px">
+                    <div class="rd-navbar-inner">
+                        <div class="rd-navbar-panel">
+                            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                            <div class="rd-navbar-brand">
+                                <a class="brand-name" href="@Url.Action("Index", "Home")">
+                                    <div class="brand-mobile">
+                                        <img src="~/panel/img/logo.png" alt="" width="200" height="36" />
+                                    </div>
+                                    <div class="brand-desktop">
+                                        <img src="~/panel/img/logo.png" alt="" width="125" height="125" />
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-nav-wrap">
+                            <div class="rd-navbar-nav-inner">
+                                <ul class="rd-navbar-nav">
+                                    <li class="active">
+                                        <a href="@Url.Action("Index", "Home")">Anasayfa</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("About", "Home")">Hakkımızda ▼</a>
+                                        <ul class="rd-navbar-dropdown">
+                                            <li>
+                                                <a href="@Url.Action("Team", "Home")">Çalışanlarımız</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Privacy", "Home")">Yasal</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Services", "Home")">Hizmetlerimiz</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Randevu", "Home")">Randevu Al</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Blog", "Home")">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Contact", "Home")">İletişim</a>
+                                    </li>
+                                    @if (ViewBag.UserName != null)
+                                    {
+                                        <li><a href="@Url.Action("Logout", "AdmPanel")">Çıkış Yap</a></li>
+                                        <li><a href="@Url.Action("Index", "AdmPanel")">@ViewBag.UserName</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("Login", "AdmPanel")">Giriş Yap</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="shell">
+            <h2 style="text-align:center">Son Adım !</h2>
+            <div style="text-align:center" class="p text-width-medium">
+                <p class="big">Randevu bilgilerinizin doğru olduğunu inceledikten sonra onaylayınız.</p>
+            </div>
+            <form method="post" action="@Url.Action("ConfirmAppointment", "Home")">
+                <div class="box-contacts box-contacts-vertical box-contacts-vertical-small box-wrap-content-interactive block-centered">
+                    <div class="box-contacts-col">
+                        <div class="box-contacts-block">
+                            <h3>Seçilen Personel:</h3>
+                            <p>@ViewBag.StaffName</p>
+                            <input type="hidden" name="staffId" value="@ViewBag.StaffId">
+                        </div>
+                        <div class="box-contacts-block">
+                            <h3>Tarih:</h3>
+                            <p>@ViewBag.AppointmentDate.ToString("MMMM dd") (@ViewBag.AppointmentTime.ToString(@"hh\:mm") - @ViewBag.AppointmentTime.Add(TimeSpan.FromMinutes(30)).ToString(@"hh\:mm"))</p>
+                            <input type="hidden" name="date" value="@ViewBag.AppointmentDate">
+                            <input type="hidden" name="time" value="@ViewBag.AppointmentTime">
+                        </div>
+                    </div>
+                    @if (ViewBag.UserRole == null)
+                    {
+                        @* <div class="form-group">
+                            <span style="color:blue;font-weight:bold;">Birden fazla hizmet için yorum kısmında lütfen belirtiniz...</span><br />
+                            <br />
+                            <label for="ServiceID">hizmet seciniz:</label>
+                            @Html.DropDownListFor(m => m.ServiceId, new SelectList(Model.Services, "ServiceID", "Description", 0), "Hizmet Seçiniz", new { @id = "ServiceSelect", @class = "form-control", @name = "ServiceID" })
+                        </div> *@
+                        <div class="form-group">
+                            <label for="name">Ad Soyad Giriniz:</label>
+                            <input class="form-control" id="name" type="text" name="name" required placeholder="Örn: Ali Veli">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Telefon Numaranızı Giriniz:</label>
+                            <input class="form-control" id="phone" type="text" name="phone" required pattern="\d{10,11}" maxlength="11" placeholder="Örn: 5xx xxx xx xx veya 05xx xxx xx xx">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Mail Adresinizi Giriniz:</label>
+                            <input class="form-control" id="email" type="email" name="email" required placeholder="Örn: aliveli@gmail.com - aliveli@hotmail.com">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <label for="name">Tam İsim:</label>
+                            <input class="form-control" id="name" type="text" name="name" value="@ViewBag.CustomerName" readonly required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Telefon Numarası:</label>
+                            <input class="form-control" id="phone" type="text" name="phone" value="@ViewBag.CustomerPhone" readonly required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Mail Adresi:</label>
+                            <input class="form-control" id="email" type="email" name="email" value="@ViewBag.CustomerEmail" readonly required>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label style="color:red;font-weight:bold;" for="comment">Lütfen İstediğiniz Hizmetleri Aşağıya Kesinlikle Yazınız:</label>
+                        <textarea class="form-control" id="comment" name="comment" placeholder="Anasayfadaki hakkımızda kısmında bulunan hizmetlerimizi inceleyip yazabilirsiniz"></textarea>
+                    </div>
+                    <div class="box-contacts-col box-contacts-right">
+                        <div class="box-contacts-block">
+                            <button class="btn btn-sm btn-primary btn-block btn-circle" type="submit">Randevu Onayla</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <footer class="page-footer page-footer-variant-3">
+            <div class="shell">
+                <div class="range range-50">
+                    <div class="cell-sm-6 cell-md-4">
+                        <h3>Sayfalar</h3>
+                        <div class="divider divider-conch"></div>
+                        <ul class="footer-navigation row footer-navigation-vertical" style="max-width: 390px;">
+                            <li class="col-xs-6"><a href="@Url.Action("Index", "Home")">Anasayfa</a></li>
+                            <li class="col-xs-6"><a href="@Url.Action("Blog", "Home")">Blog</a></li>
+                            <li class="col-xs-6"><a href="@Url.Action("About", "Home")">Hakkımızda</a></li>
+                            <li class="col-xs-6"><a href="@Url.Action("Contact", "Home")">İletişim</a></li>
+                        </ul>
+                    </div>
+                    @if (ViewBag.ContactInfo != null)
+                    {
+                        <div class="cell-sm-6 cell-md-3">
+                            <h3>Bizi Takip Edin</h3>
+                            <div class="divider divider-conch"></div>
+                            <ul class="inline-list inline-list-xs">
+
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Facebook))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-facebook" href="@ViewBag.ContactInfo.Facebook"></a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Twitter))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-twitter" href="@ViewBag.ContactInfo.Twitter"></a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Youtube))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-youtube" href="@ViewBag.ContactInfo.Youtube"></a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Instagram))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-instagram" href="@ViewBag.ContactInfo.Instagram"></a>
+                                    </li>
+                                }
+
+                            </ul>
+
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__cent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/index/js/core.min.js"></script>
+    <script src="~/index/js/script.js"></script>
+    @* <script src="~/panel/js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ServiceSelect").css({
+                "background-color":"red",
+            });
+
+        });
+    </script> *@
+</body>
+</html>

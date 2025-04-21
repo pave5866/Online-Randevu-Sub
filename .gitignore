@@ -1,0 +1,76 @@
+# Dependency directories
+node_modules/
+vendor/
+packages/
+
+# Build outputs
+dist/
+build/
+out/
+bin/
+obj/
+*.min.js
+*.min.css
+
+# Debug/Release folders
+[Dd]ebug*/
+[Rr]elease*/
+x64/
+x86/
+[Aa][Rr][Mm]*/
+bld/
+
+# Environment variables and configuration
+.env*
+config.json
+settings.json
+
+# PayTR özel bilgileri
+**/paytr_config.php
+**/paytr_credentials.php
+**/paytr_keys.php
+**/paytr*.json
+
+# IDE ve editör dosyaları
+.idea/
+.vscode/
+.vs/
+*.sublime-*
+*.user
+*.suo
+*.DotSettings
+
+# Log dosyaları
+logs/
+*.log
+
+# İşletim sistemi dosyaları
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Geçici dosyalar
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+
+# .NET Core
+artifacts/
+project.lock.json
+project.fragment.lock.json
+**/dotnet-tools.json
+
+# Diğer
+ClientBin/
+_Deliveries/
+TestResults/
+publish/
+*.nupkg*

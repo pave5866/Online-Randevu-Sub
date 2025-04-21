@@ -1,0 +1,229 @@
+﻿@{
+    ViewData["Title"] = "Anasayfa";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <!-- Site Title-->
+    <title>@ViewBag.SiteTitle - Randevu Adım 2</title>
+    <link rel="shortcut icon" href="~/img/logo.png" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto+Mono:300,300italic,400,700%7CArvo:400,700">
+    <link rel="stylesheet" href="~/index/css/style.css">
+
+</head>
+<body>
+    <div class="page">
+        <header class="page-header">
+            <div class="rd-navbar-wrap">
+                <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-sm-device-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fullwidth" data-stick-up-clone="true" data-md-stick-up-offset="140px" data-lg-stick-up-offset="140px">
+                    <div class="rd-navbar-inner">
+                        <div class="rd-navbar-panel">
+                            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                            <div class="rd-navbar-brand">
+                                <a class="brand-name" href="@Url.Action("Index", "Home")">
+                                    <div class="brand-mobile">
+                                        <img src="~/panel/img/logo.png" alt="" width="200" height="36" />
+                                    </div>
+                                    <div class="brand-desktop">
+                                        <img src="~/panel/img/logo.png" alt="" width="125" height="125" />
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-nav-wrap">
+                            <div class="rd-navbar-nav-inner">
+                                <ul class="rd-navbar-nav">
+                                    <li class="active">
+                                        <a href="@Url.Action("Index", "Home")">Anasayfa</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("About", "Home")">Hakkımızda ▼</a>
+                                        <ul class="rd-navbar-dropdown">
+                                            <li>
+                                                <a href="@Url.Action("Team", "Home")">Çalışanlarımız</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Privacy", "Home")">Yasal</a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("Services", "Home")">Hizmetlerimiz</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Randevu", "Home")">Randevu Al</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Blog", "Home")">Blog</a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Contact", "Home")">İletişim</a>
+                                    </li>
+                                    @if (ViewBag.UserName != null)
+                                    {
+                                        <li><a href="@Url.Action("Logout", "AdmPanel")">Çıkış Yap</a></li>
+                                        <li><a href="@Url.Action("Index", "AdmPanel")">@ViewBag.UserName</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("Login", "AdmPanel")">Giriş Yap</a></li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <section class="section-xs bg-periglacial-blue one-screen-page-content text-center">
+            <div class="shell">
+                <h2>Gün Seç</h2>
+                <div class="rd-material-tabs date-picker" data-items="2" data-xs-items="3" data-sm-items="4" data-md-items="5" data-margin="15" data-stage-padding="0" data-sm-stage-padding="30">
+                    <div class="rd-material-tabs__list">
+                        <ul>
+                            @foreach (var day in ViewBag.AvailableTimeSlots.Keys)
+                            {
+                                <li>
+                                    <a class="date-picker-date @(ViewBag.AvailableTimeSlots[day].Count == 0 ? "disabled" : "")" href="#">
+                                        <div class="date-picker-date-number">@day.Day</div>
+                                        <div class="date-picker-date-text">@ViewBag.DayNames[day]</div>
+                                        <div class="date-picker-date-text">@day.ToString("MMMM")</div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <br />
+                    <h2>Başlangıç Saati Seç</h2>
+                    <div class="rd-material-tabs__container">
+                        @foreach (var day in ViewBag.AvailableTimeSlots.Keys)
+                        {
+                            <div>
+                                <ul class="date-picker-list animated fadeIn">
+                                    @foreach (var slot in ViewBag.AvailableTimeSlots[day])
+                                    {
+                                        int timeIndex = 0;
+                                        <li id="@timeIndex" class="@(!slot.IsAvailable ? "disabled" : "")">
+                                            <a href="@Url.Action("SelectTime", "Home", 
+                                                new {staffId = ViewBag.SelectedStaffId, date = day, time = slot.StartTime})">
+                                                @slot.StartTime.ToString(@"hh\:mm") @*- @slot.StartTime.Add(TimeSpan.FromMinutes(30)).ToString(@"hh\:mm") *@
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                                <div class="date-picker-date-text">@ViewBag.DayNames[day]</div>
+                                <div class="date-picker-date-text">@day.ToString("dd MMMM")</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="page-footer page-footer-variant-3">
+            <div class="shell">
+                <div class="range range-50">
+                    <div class="cell-sm-6 cell-md-4">
+                        <h3>Sayfalar</h3>
+                        <div class="divider divider-conch"></div>
+                        <ul class="footer-navigation row footer-navigation-vertical" style="max-width: 390px;">
+                            <li class="col-xs-6"><a href="@Url.Action("Index", "Home")">Anasayfa</a></li>
+                            <li class="col-xs-6"><a href="@Url.Action("Blog", "Home")">Blog</a></li>
+                            <li class="col-xs-6"><a href="@Url.Action("About", "Home")">Hakkımızda</a></li>
+                            <li class="col-xs-6"><a href="@Url.Action("Contact", "Home")">İletişim</a></li>
+                        </ul>
+                    </div>
+                    @if (ViewBag.ContactInfo != null)
+                    {
+                        <div class="cell-sm-6 cell-md-3">
+                            <h3>Bizi Takip Edin</h3>
+                            <div class="divider divider-conch"></div>
+                            <ul class="inline-list inline-list-xs">
+
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Facebook))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-facebook" href="@ViewBag.ContactInfo.Facebook"></a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Twitter))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-twitter" href="@ViewBag.ContactInfo.Twitter"></a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Youtube))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-youtube" href="@ViewBag.ContactInfo.Youtube"></a>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(ViewBag.ContactInfo.Instagram))
+                                {
+                                    <li>
+                                        <a class="icon icon-xs-outline icon-wild-sand-filled icon-circle fa-instagram" href="@ViewBag.ContactInfo.Instagram"></a>
+                                    </li>
+                                }
+
+                            </ul>
+
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </footer>
+    </div>
+    <div class="snackbars" id="form-output-global"></div>
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div>
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__cent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/index/js/core.min.js"></script>
+    <script src="~/index/js/script.js"></script>
+</body>
+</html>

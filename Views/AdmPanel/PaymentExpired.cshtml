@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="5;url=@Url.Action("Index", "Home")"> <!-- 5 saniye sonra ana sayfaya yönlendir -->
+    <title>Randevu Onaylandı</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css"> <!-- Bootstrap CSS eklendi -->
+    <script src="~/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS eklendi -->
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-success" role="alert">
+            Ödeme tamamlandı ya da süresi gecikti. Anasayfaya yönlendiriliyorsunuz.
+        </div>
+    </div>
+
+    <script>
+        setTimeout(function () {
+            window.location.href = '@Url.Action("Index", "Home")'; // JavaScript ile yönlendirme
+        }, 5000); // 5000 milisaniye (5 saniye) sonra
+    </script>
+</body>
+</html>
