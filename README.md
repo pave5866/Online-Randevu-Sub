@@ -3,7 +3,8 @@
 <div align="center">
   <p><i>C# ile geliştirilmiş profesyonel online randevu yönetim sistemi</i></p>
 </div>
-![vrndvmeski](https://github.com/user-attachments/assets/edcd0d17-3634-444b-8a21-d664f78cd6cc)
+
+![dessseee](https://github.com/user-attachments/assets/d38d07e9-090a-49b9-815d-c8176a24687a)
 
 ## 📋 Proje Hakkında
 
