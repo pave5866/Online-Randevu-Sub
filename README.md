@@ -1,10 +1,9 @@
 # Online Randevu Sistemi VERANDEVUM
 
 <div align="center">
-  ![500x500 verandevum](https://github.com/user-attachments/assets/da2f9f40-594e-4898-9674-024b84f91d4e)
-
   <p><i>C# ile geliştirilmiş profesyonel online randevu yönetim sistemi</i></p>
 </div>
+![vrndvmeski](https://github.com/user-attachments/assets/edcd0d17-3634-444b-8a21-d664f78cd6cc)
 
 ## 📋 Proje Hakkında
 
